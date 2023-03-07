@@ -41,6 +41,13 @@ while game_is_on:
     time.sleep(0.1)
     screen.update()
     ball.ball_move()
+    # detection of upper limit
+    if ball.ycor() > 280 or ball.ycor() < -280:
+        ball.bounce()
+    if ball.distance(right_padle) < 50 and ball.xcor() > 320 or ball.distance(left_padle) < 50 and ball.xcor() > 320 :
+        ball.padle_bounce()
+
+
 
 
 
