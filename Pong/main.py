@@ -2,7 +2,7 @@
 import turtle
 from turtle import Turtle
 from turtle import Screen
-from game_items import Padles, Ball
+from game_items import Padles, Ball, Scoreboard
 import time
 
 #screen creation
@@ -26,6 +26,9 @@ left_padle = Padles((-350,0))
 #Ball creation
 ball = Ball()
 
+#scoreboard
+scoreboard = Scoreboard()
+
 
 #right_paddle move up or down
 
@@ -38,23 +41,28 @@ screen.onkey(left_padle.move_padle_down, "s")
 
 game_is_on = True
 while game_is_on:
-    time.sleep(0.1)
+    time.sleep(ball.move_speed)
     screen.update()
     ball.ball_move()
     # detection of upper limit
     if ball.ycor() > 280 or ball.ycor() < -280:
         ball.bounce()
-    if ball.distance(right_padle) < 50 and ball.xcor() > 320 or ball.distance(left_padle) < 50 and ball.xcor() > 320 :
+    if ball.distance(right_padle) < 50 and ball.xcor() > 320 or ball.distance(left_padle) < 50 and ball.xcor() < -320 :
         ball.padle_bounce()
 
 
     #right side misses
     if ball.xcor() > 380:
         ball.reset_positon()
+        scoreboard.l_point()
+
 
     #left side misses
     if ball.xcor() < -380:
         ball.reset_positon()
+        scoreboard.r_point()
+
+
 
 
 
